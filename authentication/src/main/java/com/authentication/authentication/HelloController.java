@@ -23,4 +23,9 @@ public class HelloController {
         return new String("hello admin");
     }
 
+    @GetMapping("/open/hello")
+    public String openHello() {
+        return new String("hello open");
+    }
+
 }
