@@ -19,7 +19,11 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((request) -> request.anyRequest().authenticated());
+        http.authorizeHttpRequests((request) -> request
+                .requestMatchers("/open/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated());
         // http.formLogin(Customizer.withDefaults());
         http.httpBasic(Customizer.withDefaults());
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
