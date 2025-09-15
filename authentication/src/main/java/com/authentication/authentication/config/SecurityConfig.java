@@ -34,11 +34,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((request) -> request
-                .requestMatchers("/open/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated())
+        http.csrf(csrf -> csrf.disable()) // <---- disable CSRF for APIs
+                .authorizeHttpRequests((request) -> request
+                        .requestMatchers("/auth/**").permitAll()
+                        .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
