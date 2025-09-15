@@ -40,6 +40,7 @@
 
 - **NOTE:** You are right:
   If you provide `UserDetailsService` + `PasswordEncoder`, **Spring auto-configures a DaoAuthenticationProvider** for you.
+- UserDetailsService loads user form db and uses passwordEncoder to match password
 
 ### **6. Use authenticationManager.authenticate() in login**
 
