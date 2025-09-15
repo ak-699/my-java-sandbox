@@ -2,9 +2,11 @@ package com.authentication.authentication.auth;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.authentication.authentication.service.CustomUserDetailsService;
@@ -14,15 +16,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+@Component
 public class JwtTokenFilter extends OncePerRequestFilter {
-
+    @Autowired
     private JwtUtils jwtUtils;
+    @Autowired
     private CustomUserDetailsService customUserDetailsService;
-
-    public JwtTokenFilter(JwtUtils jwtUtils, CustomUserDetailsService customUserDetailsService) {
-        this.jwtUtils = jwtUtils;
-        this.customUserDetailsService = customUserDetailsService;
-    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
