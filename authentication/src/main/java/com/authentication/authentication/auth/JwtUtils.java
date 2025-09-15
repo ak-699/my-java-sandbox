@@ -25,9 +25,6 @@ public class JwtUtils {
     }
 
     public String createToken(String username, String role) {
-        Claims claims = Jwts.claims().build();
-        claims.put("sub", username);
-        claims.put("role", role);
 
         Date now = new Date();
         Date expiry = new Date(now.getTime() + validityInMs);
