@@ -8,17 +8,20 @@ import org.springframework.stereotype.Service;
 
 import com.authentication.authentication.auth.CustomUserDetails;
 import com.authentication.authentication.entity.User;
-import com.authentication.authentication.repository.UsersRepository;
+import com.authentication.authentication.repository.UserRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    private UsersRepository usersRepository;
+    private UserRepository userRepository;
+
+    public CustomUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = usersRepository.findByUsername(username)
+        User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found."));
         return new CustomUserDetails(user);
     }
